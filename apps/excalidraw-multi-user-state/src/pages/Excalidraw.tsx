@@ -4,16 +4,16 @@ import {
   ExcalidrawImperativeAPI,
   SocketId,
 } from "@excalidraw/excalidraw/types";
-import { useEffect, useState } from "react";
-import useBufferedWebSocket from "../hooks/excalidraw-socket";
 import {
   BufferEventType,
-  PointerEventSchema,
-  PointerEvent,
-  ExcalidrawElementChangeSchema,
   ExcalidrawElementChange,
+  ExcalidrawElementChangeSchema,
+  PointerEvent,
+  PointerEventSchema,
 } from "@repo/schemas/events";
 import { useParams } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import useBufferedWebSocket from "../hooks/excalidraw-socket";
 
 function ExcalidrawComponent() {
   const [excalidrawAPI, setExcalidrawAPI] =
@@ -94,7 +94,7 @@ function ExcalidrawComponent() {
   const sendEventViaSocket = useBufferedWebSocket(handleMessage, id);
 
   return (
-    <div className="canvas" style={{ height: "800px", width: "100%" }}>
+    <div className="canvas" style={{ height: "100vh", width: "100%" }}>
       <Excalidraw
         onPointerUpdate={(payload) => {
           sendEventViaSocket(
@@ -105,7 +105,7 @@ function ExcalidrawComponent() {
                 x: payload.pointer.x,
                 y: payload.pointer.y,
               },
-            }),
+            })
           );
         }}
         onPointerUp={() => {
@@ -114,7 +114,7 @@ function ExcalidrawComponent() {
               ExcalidrawElementChangeSchema.parse({
                 type: "elementChange",
                 data: excalidrawAPI.getSceneElements(),
-              }),
+              })
             );
           }
         }}

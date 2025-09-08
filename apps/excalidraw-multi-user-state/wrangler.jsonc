@@ -16,7 +16,7 @@
   },
   "routes": [
     {
-      "pattern": "<your-domain>",
+      "pattern": "drawx.xcelerator.work",
       "custom_domain": true,
     },
   ],

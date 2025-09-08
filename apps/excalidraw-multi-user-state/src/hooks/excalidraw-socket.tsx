@@ -1,16 +1,18 @@
-import { useEffect, useRef } from "react";
 import { BufferEvent, BufferEventType } from "@repo/schemas/events";
+import { useEffect, useRef } from "react";
 
 const useBufferedWebSocket = (
   handleMessage: (event: BufferEventType) => void,
   id: string,
-  bufferTime = 10,
+  bufferTime = 10
 ) => {
   const bufferedEvents = useRef<Record<string, BufferEventType>>({});
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    socketRef.current = new WebSocket(`ws://localhost:8787/api/ws/${id}`);
+    socketRef.current = new WebSocket(
+      `wss://drawx.xcelerator.work/api/ws/${id}`
+    );
 
     const socket = socketRef.current;
 
